@@ -38,9 +38,24 @@ let updateTodoList = function() {
         let newElement = document.createElement("div");
         let newContent = document.createTextNode(todoList[todo].title + " " + todoList[todo].description);
         newElement.appendChild(newContent);
+
+        //create deletion button
+        let newDeleteButton = document.createElement("input")
+        newDeleteButton.type = "button";
+        newDeleteButton.value = "x";
+        newDeleteButton.addEventListener("click",
+            function(){
+                deleteTodo(todo);
+            }
+        );
+        //add deletion button to the element
+        newElement.appendChild(newDeleteButton);
+        //add everything to the div
         todoListDiv.appendChild(newElement);
     }
+
 }
+
 
 setInterval(updateTodoList, 1000);
 
@@ -67,3 +82,8 @@ let addTodo = function() {
     //add item to the list
       todoList.push(newTodo);
   }
+
+  //step 3c
+  let deleteTodo = function(index) {
+    todoList.splice(index,1);
+}
