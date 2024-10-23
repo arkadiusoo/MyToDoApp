@@ -28,8 +28,22 @@ let initList = function() {
     );
 }
 }
+//step 4
+//initList();
 
-initList();
+let req = new XMLHttpRequest();
+
+req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        console.log(req.responseText);
+        
+        
+    }
+};
+
+req.open("GET", "https://api.jsonbin.io/v3/b/67197594acd3cb34a89bf98f/latest", true);
+req.setRequestHeader("X-Master-Key", "$2a$10$v5AIiUcMItBWyWO03Obg0u4uaZ9XQRFvbnY/20M1vLZrYt5yYEWRS");
+req.send();
 
 let updateTodoList = function() {
     let todoListDiv =
