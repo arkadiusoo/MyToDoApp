@@ -40,26 +40,22 @@ let updateTodoList = function() {
         todoListDiv.removeChild(todoListDiv.firstChild);
     }
 
-    //add all elements
+    //add all elements - step 3e updated
+    let filterInput = document.getElementById("inputSearch");   
     for (let todo in todoList) {
-        let newElement = document.createElement("div");
-        let newContent = document.createTextNode(todoList[todo].title + " " + todoList[todo].description);
+    if (
+        // if any condtition is valid it will be display
+        (filterInput.value == "") ||
+        (todoList[todo].title.includes(filterInput.value)) ||
+        (todoList[todo].description.includes(filterInput.value))
+    ) {
+        let newElement = document.createElement("p");
+        let newContent = document.createTextNode(todoList[todo].title + " " +
+                                                todoList[todo].description);
         newElement.appendChild(newContent);
-
-        //create deletion button
-        let newDeleteButton = document.createElement("input")
-        newDeleteButton.type = "button";
-        newDeleteButton.value = "x";
-        newDeleteButton.addEventListener("click",
-            function(){
-                deleteTodo(todo);
-            }
-        );
-        //add deletion button to the element
-        newElement.appendChild(newDeleteButton);
-        //add everything to the div
         todoListDiv.appendChild(newElement);
     }
+}
 
 }
 
