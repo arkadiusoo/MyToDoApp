@@ -35,8 +35,20 @@ let req = new XMLHttpRequest();
 
 req.onreadystatechange = () => {
     if (req.readyState == XMLHttpRequest.DONE) {
-        console.log(req.responseText);
-        
+        // parsing JSON respone to JS object
+        let responseObj = JSON.parse(req.responseText);
+        let records = responseObj.record;
+        for (let record in records) {
+            todoList.push(
+                {
+                    title:records[record].title,
+                    description: records[record].description,
+                    place: records[record].place,
+                    category: records[record].category,
+                    dueDate: records[record].dueDate
+                }
+            )
+        }
         
     }
 };
@@ -67,6 +79,19 @@ let updateTodoList = function() {
         let newContent = document.createTextNode(todoList[todo].title + " " +
                                                 todoList[todo].description);
         newElement.appendChild(newContent);
+
+        let newDeleteButton = document.createElement("input")
+        newDeleteButton.type = "button";
+        newDeleteButton.value = "x";
+        newDeleteButton.addEventListener("click",
+            function(){
+                deleteTodo(todo);
+            }
+        );
+        //add deletion button to the element
+        newElement.appendChild(newDeleteButton);
+        //add everything to the div
+        
         todoListDiv.appendChild(newElement);
     }
 }
@@ -75,6 +100,22 @@ let updateTodoList = function() {
 
 
 setInterval(updateTodoList, 1000);
+
+let updateJSONbin = function() {
+    let req = new XMLHttpRequest();
+
+    req.onreadystatechange = () => {
+    if (req.readyState == XMLHttpRequest.DONE) {
+        console.log(req.responseText);
+    }
+    };
+
+    req.open("PUT", "https://api.jsonbin.io/v3/b/67197594acd3cb34a89bf98f", true);
+    req.setRequestHeader("Content-Type", "application/json");
+    req.setRequestHeader("X-Master-Key", "$2a$10$v5AIiUcMItBWyWO03Obg0u4uaZ9XQRFvbnY/20M1vLZrYt5yYEWRS");
+    let jsonData = JSON.stringify(todoList);
+    req.send(jsonData);
+    }
 
 //step 3b
 let addTodo = function() {
@@ -99,12 +140,16 @@ let addTodo = function() {
     //add item to the list
       todoList.push(newTodo);
     // step 3d
-    window.localStorage.setItem("todos", JSON.stringify(todoList));
+    // window.localStorage.setItem("todos", JSON.stringify(todoList));
+    //step 4
+    updateJSONbin();
   }
 
   //step 3c
   let deleteTodo = function(index) {
     todoList.splice(index,1);
     // step 3d
-    window.localStorage.setItem("todos", JSON.stringify(todoList));
+    // window.localStorage.setItem("todos", JSON.stringify(todoList));
+    //step 4
+    updateJSONbin();
 }
