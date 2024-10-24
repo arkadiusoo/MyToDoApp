@@ -58,12 +58,12 @@ req.setRequestHeader("X-Master-Key", "$2a$10$v5AIiUcMItBWyWO03Obg0u4uaZ9XQRFvbnY
 req.send();
 
 let updateTodoList = function() {
-    let todoListDiv =
-    document.getElementById("todoListView");
+    let todoTableBody =
+    document.querySelector("#todoTable tbody");
 
     //remove all elements
-    while (todoListDiv.firstChild) {
-        todoListDiv.removeChild(todoListDiv.firstChild);
+    while (todoTableBody.firstChild) {
+        todoTableBody.removeChild(todoTableBody.firstChild);
     }
 
     //add all elements - step 3e updated
@@ -75,11 +75,27 @@ let updateTodoList = function() {
         (todoList[todo].title.includes(filterInput.value)) ||
         (todoList[todo].description.includes(filterInput.value))
     ) {
-        let newElement = document.createElement("p");
-        let newContent = document.createTextNode(todoList[todo].title + " " +
-                                                todoList[todo].description);
-        newElement.appendChild(newContent);
+        // creates row for each task
+        let row = document.createElement("tr");
+        
+        // add each information
+        let titleCell = document.createElement("td");
+        titleCell.textContent = todoList[todo].title;
+        row.appendChild(titleCell);
 
+        let descriptionCell = document.createElement("td");
+        descriptionCell.textContent = todoList[todo].description;
+        row.appendChild(descriptionCell);
+
+        let placeCell = document.createElement("td");
+        placeCell.textContent = todoList[todo].place;
+        row.appendChild(placeCell);
+
+        let dueDateCell = document.createElement("td");
+        dueDateCell.textContent = new Date(todoList[todo].dueDate).toLocaleDateString();
+        row.appendChild(dueDateCell);
+        
+        let actionCell = document.createElement("td");
         let newDeleteButton = document.createElement("input")
         newDeleteButton.type = "button";
         newDeleteButton.value = "x";
@@ -89,10 +105,10 @@ let updateTodoList = function() {
             }
         );
         //add deletion button to the element
-        newElement.appendChild(newDeleteButton);
-        //add everything to the div
-        
-        todoListDiv.appendChild(newElement);
+        actionCell.appendChild(newDeleteButton);
+        row.appendChild(actionCell);
+
+        todoTableBody.appendChild(row);
     }
 }
 
