@@ -144,7 +144,14 @@ let addTodo = function() {
       let newTitle = inputTitle.value;
       let newDescription = inputDescription.value;
       let newPlace = inputPlace.value;
-      let newDate = new Date(inputDate.value);
+
+      let newDate;
+      if (inputDate.value == "") {
+        newDate = new Date();
+      }
+      else {
+        newDate = new Date(inputDate.value);
+      }
     //create new item
       let newTodo = {
           title: newTitle,
