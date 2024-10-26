@@ -98,7 +98,7 @@ let updateTodoList = function() {
         let actionCell = document.createElement("td");
         let newDeleteButton = document.createElement("input")
         newDeleteButton.type = "button";
-        newDeleteButton.value = "x";
+        newDeleteButton.value = "Done";
         newDeleteButton.addEventListener("click",
             function(){
                 deleteTodo(todo);
@@ -137,6 +137,10 @@ let updateJSONbin = function() {
 let addTodo = function() {
     //get the elements in the form
       let inputTitle = document.getElementById("inputTitle");
+      if (inputTitle.value.trim() === ""){
+        alert("Title cannot be empty!");
+        return;      
+    }
       let inputDescription = document.getElementById("inputDescription");
       let inputPlace = document.getElementById("inputPlace");
       let inputDate = document.getElementById("inputDate");
@@ -166,6 +170,11 @@ let addTodo = function() {
     // window.localStorage.setItem("todos", JSON.stringify(todoList));
     //step 4
     updateJSONbin();
+    
+    inputTitle.value = "";
+    inputDescription.value = "";
+    inputPlace.value = "";
+    inputDate.value = "";
   }
 
   //step 3c
