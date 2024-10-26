@@ -19,6 +19,10 @@ body {
     padding: 2rem;
     max-width: 600px;
     width: 100%;
+}s
+.table-container {
+    max-width: 100%;
+    margin: 0 auto;
 }
 
 /* Nagłówek */
@@ -71,7 +75,6 @@ h1 {
 /* Tabela */
 .table {
     width: 100%; /* Szerokość 100% kontenera */
-    max-width: 600px; /* Maksymalna szerokość tabeli */
     table-layout: fixed; /* Wymuszenie stałej szerokości kolumn */
     background-color: #ffffff;
     border-radius: 12px;
