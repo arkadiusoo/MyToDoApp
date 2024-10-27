@@ -27,64 +27,79 @@ req.send();
 let updateTodoList = function() {
     let todoTableBody = document.querySelector("#todoTable tbody");
 
-    // delete all elements
+    // Usuń wszystkie elementy
     while (todoTableBody.firstChild) {
         todoTableBody.removeChild(todoTableBody.firstChild);
     }
 
-    // add elements
-    let filterInput = document.getElementById("inputSearch");
-    for (let todo in todoList) {
-        if (
-            filterInput.value === "" ||
-            todoList[todo].title.includes(filterInput.value) ||
-            todoList[todo].description.includes(filterInput.value)
-        ) {
-            let row = document.createElement("tr");
+    // Pobierz wartości filtrów daty
+    let startDateInput = document.getElementById("startDate").value;
+    let endDateInput = document.getElementById("endDate").value;
+    let filterInput = document.getElementById("inputSearch").value;
 
-            let titleCell = document.createElement("td");
-            titleCell.textContent = todoList[todo].title;
-            row.appendChild(titleCell);
+    // Ustaw zakres dat, jeśli pola daty są wypełnione
+    let startDate = startDateInput ? new Date(startDateInput) : null;
+    let endDate = endDateInput ? new Date(endDateInput) : null;
 
-            let descriptionCell = document.createElement("td");
-            descriptionCell.textContent = todoList[todo].description;
-            row.appendChild(descriptionCell);
+    // Filtruj zadania według kryteriów wyszukiwania i zakresu dat
+    let filteredTodos = todoList.filter(todo => {
+        let todoDate = new Date(todo.dueDate);
+        let matchesSearch = filterInput === "" || 
+            todo.title.includes(filterInput) || 
+            todo.description.includes(filterInput);
+        
+        let matchesDate = true;
+        if (startDate && todoDate < startDate) matchesDate = false;
+        if (endDate && todoDate > endDate) matchesDate = false;
 
-            let placeCell = document.createElement("td");
-            placeCell.textContent = todoList[todo].place;
-            row.appendChild(placeCell);
+        return matchesSearch && matchesDate;
+    });
 
-            let dueDateCell = document.createElement("td");
-            dueDateCell.textContent = new Date(todoList[todo].dueDate).toLocaleDateString();
-            row.appendChild(dueDateCell);
+    // Dodaj przefiltrowane elementy do tabeli
+    filteredTodos.forEach(todo => {
+        let row = document.createElement("tr");
 
-            let actionCell = document.createElement("td");
-            actionCell.classList.add("action-cell")
-            let newDeleteButton = document.createElement("input");
-            newDeleteButton.type = "button";
-            newDeleteButton.value = "Delete";
-            newDeleteButton.classList.add("btn-delete");
-            newDeleteButton.addEventListener("click", function() {
-                deleteTodo(todo);
-            });
+        let titleCell = document.createElement("td");
+        titleCell.textContent = todo.title;
+        row.appendChild(titleCell);
 
-            let newDoneButton = document.createElement("input");
-            newDoneButton.type = "button";
-            newDoneButton.value = "Done";
-            newDoneButton.classList.add("btn-done");
-            newDoneButton.addEventListener("click", function() {
-                deleteTodo(todo);
-            });
+        let descriptionCell = document.createElement("td");
+        descriptionCell.textContent = todo.description;
+        row.appendChild(descriptionCell);
 
-            actionCell.appendChild(newDoneButton);
-            actionCell.appendChild(newDeleteButton);
+        let placeCell = document.createElement("td");
+        placeCell.textContent = todo.place;
+        row.appendChild(placeCell);
 
-            row.appendChild(actionCell);
+        let dueDateCell = document.createElement("td");
+        dueDateCell.textContent = new Date(todo.dueDate).toLocaleDateString();
+        row.appendChild(dueDateCell);
 
+        let actionCell = document.createElement("td");
+        actionCell.classList.add("action-cell");
+        
+        let newDeleteButton = document.createElement("input");
+        newDeleteButton.type = "button";
+        newDeleteButton.value = "Delete";
+        newDeleteButton.classList.add("btn-delete");
+        newDeleteButton.addEventListener("click", function() {
+            deleteTodo(todo);
+        });
 
-            todoTableBody.appendChild(row);
-        }
-    }
+        let newDoneButton = document.createElement("input");
+        newDoneButton.type = "button";
+        newDoneButton.value = "Done";
+        newDoneButton.classList.add("btn-done");
+        newDoneButton.addEventListener("click", function() {
+            deleteTodo(todo);
+        });
+
+        actionCell.appendChild(newDoneButton);
+        actionCell.appendChild(newDeleteButton);
+        row.appendChild(actionCell);
+
+        todoTableBody.appendChild(row);
+    });
 };
 
 // update per one second
