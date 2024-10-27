@@ -84,6 +84,10 @@ let updateTodoList = function() {
         dueDateCell.textContent = new Date(todo.dueDate).toLocaleDateString();
         row.appendChild(dueDateCell);
 
+        let categoryCell = document.createElement("td");
+        categoryCell.textContent = todo.category;
+        row.appendChild(categoryCell);
+
         let actionCell = document.createElement("td");
         actionCell.classList.add("action-cell");
         
@@ -140,12 +144,14 @@ let addTodo = function() {
     let inputDescription = document.getElementById("inputDescription");
     let inputPlace = document.getElementById("inputPlace");
     let inputDate = document.getElementById("inputDate");
+    // przyszla logika
+    let inputCategory = '9'
 
     let newTodo = {
         title: inputTitle.value,
         description: inputDescription.value,
         place: inputPlace.value,
-        category: '',
+        category: inputCategory,
         dueDate: inputDate.value === "" ? new Date() : new Date(inputDate.value)
     };
 
