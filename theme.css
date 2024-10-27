@@ -25,17 +25,18 @@ body {
 .form-container {
     max-width: 400px;
     margin: 0 auto;
-    /* text-align: center;  */
 }
 
 .table-container {
     max-width: 100%;
     margin: 0 auto;
 }
+
 .search-container {
     max-width: 600px;
     margin: 0 auto;
 }
+
 /* title */
 h1 {
     font-size: 2rem;
@@ -45,7 +46,7 @@ h1 {
     margin-bottom: 1.5rem;
 }
 
-/* form and input fileds */
+/* form and input fields */
 .form-group label {
     font-weight: 500;
     color: #5e5e5e;
@@ -66,6 +67,7 @@ h1 {
     color: #a1a1a6;
 }
 
+/* buttons style */
 .btn-primary {
     background-color: #007aff;
     color: #ffffff;
@@ -84,6 +86,7 @@ h1 {
     background-color: #005bb5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+
 /* table */
 .table {
     width: 100%;
@@ -114,8 +117,7 @@ h1 {
     background-color: #f9f9fa;
 }
 
-
-/* buttone delete" */
+/* Button delete */
 input[type="button"].btn-delete {
     background-color: #ff3b30;
     color: #ffffff;
@@ -128,13 +130,13 @@ input[type="button"].btn-delete {
     width: 70px;
 }
 
-input[type="button"].btn-btn:hover {
+input[type="button"].btn-delete:hover {
     background-color: #d32e2a;
 }
 
-/* Przycisk Done w stylu Apple */
+/* Button Done in Dark Mode */
 input[type="button"].btn-done {
-    background-color: #34c759; /* Apple Green */
+    background-color: #34c759;
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -145,21 +147,17 @@ input[type="button"].btn-done {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     width: 70px;
-    
-    
 }
 
-
 input[type="button"].btn-done:hover {
-    background-color: #28a745; /* Darker green for hover effect */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow on hover */
+    background-color: #28a745;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .action-cell {
     display: flex;
     align-items: center;
-    gap: 0.5rem; /* Odstęp między przyciskami */
-    min-width: 160px; /* Dostosuj szerokość, aby zmieściły się oba przyciski */
+    gap: 0.5rem;
 }
 
 /* search field */
@@ -231,29 +229,28 @@ body.dark-mode {
     color: #ffffff;
 }
 
-body.dark-mode .container {
+body.dark-mode .container,
+body.dark-mode .table,
+body.dark-mode .form-control,
+body.dark-mode #inputSearch {
     background-color: #1e1e1e;
-    color: #ffffff;
-}
-
-body.dark-mode .table {
-    background-color: #2e2e2e;
     color: #ffffff;
 }
 
 body.dark-mode .table th {
     background-color: #333333;
+    color: #ffffff;
 }
 
-/* body.dark-mode .btn-primary,
-body.dark-mode input[type="button"].btn-delete,
+body.dark-mode h1, 
+body.dark-mode .form-group label, 
+body.dark-mode .btn-primary, 
+body.dark-mode input[type="button"].btn-delete, 
 body.dark-mode input[type="button"].btn-done {
-    background-color: #505050;
     color: #ffffff;
-} */
+}
 
-body.dark-mode .form-control {
-    background-color: #2e2e2e;
+/* Kolor tekstu w ciemnym trybie dla całej tabeli */
+body.dark-mode .table td {
     color: #ffffff;
-    border: 1px solid #444;
 }
