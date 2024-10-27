@@ -59,14 +59,28 @@ let updateTodoList = function() {
             row.appendChild(dueDateCell);
 
             let actionCell = document.createElement("td");
+            actionCell.classList.add("action-cell")
             let newDeleteButton = document.createElement("input");
             newDeleteButton.type = "button";
-            newDeleteButton.value = "Done";
+            newDeleteButton.value = "Delete";
+            newDeleteButton.classList.add("btn-delete");
             newDeleteButton.addEventListener("click", function() {
                 deleteTodo(todo);
             });
+
+            let newDoneButton = document.createElement("input");
+            newDoneButton.type = "button";
+            newDoneButton.value = "Done";
+            newDoneButton.classList.add("btn-done");
+            newDoneButton.addEventListener("click", function() {
+                deleteTodo(todo);
+            });
+
+            actionCell.appendChild(newDoneButton);
             actionCell.appendChild(newDeleteButton);
+
             row.appendChild(actionCell);
+
 
             todoTableBody.appendChild(row);
         }
