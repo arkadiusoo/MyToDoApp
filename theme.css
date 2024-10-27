@@ -223,7 +223,7 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-/* Tryb ciemny */
+/* dark mode */
 body.dark-mode {
     background-color: #121212;
     color: #ffffff;
@@ -253,4 +253,14 @@ body.dark-mode input[type="button"].btn-done {
 /* Kolor tekstu w ciemnym trybie dla całej tabeli */
 body.dark-mode .table td {
     color: #ffffff;
+}
+
+/* Tryb ciemny */
+body.dark-mode #inputSearch {
+    background-color: #1e1e1e;
+    color: #ffffff;
+    border: 1px solid #ffffff; 
+    border-radius: 8px; 
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: none;
 }
