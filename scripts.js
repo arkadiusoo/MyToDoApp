@@ -135,7 +135,7 @@ let updateJSONbin = function() {
 };
 
 // add new task
-let addTodo = function() {
+let addTodo = async function() {
     let inputTitle = document.getElementById("inputTitle");
     if (inputTitle.value.trim() === "") {
         alert("Title cannot be empty!");
@@ -145,7 +145,7 @@ let addTodo = function() {
     let inputPlace = document.getElementById("inputPlace");
     let inputDate = document.getElementById("inputDate");
     // przyszla logika
-    let inputCategory = '9'
+    let inputCategory = await categorizeTask(inputTitle.value,inputDescription.value)
 
     let newTodo = {
         title: inputTitle.value,
@@ -178,4 +178,36 @@ function clearFilters(){
     document.getElementById("startDate").value = "";
     document.getElementById("endDate").value = "";
     document.getElementById("inputSearch").value = "";
+}
+
+async function categorizeTask(title, description) {
+    const response = await fetch("https://api.groq.com/openai/v1/chat/completions", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer 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" 
+        },
+        body: JSON.stringify({
+            "messages": [
+                {
+                    "role": "system",
+                    "content": "You will receive a task title and its description, which may be in Polish, English, or a mix of both. Your task is to assess whether the task is related to private life or academic life. Respond only with a number:\n1 if the task is related to academics,\n2 if the task is related to private life.\nDo not provide any additional information or explanations."
+                },
+                {
+                    "role": "user",
+                    "content": `title: ${title}\ndescription: ${description}`
+                }
+            ],
+            "model": "llama3-8b-8192",
+            "temperature": 1,
+            "max_tokens": 1024,
+            "top_p": 1,
+            "stream": false
+        })
+    });
+
+    const data = await response.json();
+
+    const category = data.choices[0].message.content.trim();
+    return category === "1" ? "Academic Zone" : "Personal Zone";
 }
