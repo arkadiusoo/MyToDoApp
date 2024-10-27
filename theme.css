@@ -91,6 +91,10 @@ h3 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
+.btn-filtr {
+    width: 120px;
+    
+}
 
 .btn-primary:hover {
     background-color: #005bb5;
@@ -256,6 +260,7 @@ body.dark-mode .table th {
 }
 
 body.dark-mode h1, 
+body.dark-mode h3, 
 body.dark-mode .form-group label, 
 body.dark-mode .btn-primary, 
 body.dark-mode input[type="button"].btn-delete, 

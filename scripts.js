@@ -38,21 +38,30 @@ let updateTodoList = function() {
     let filterInput = document.getElementById("inputSearch").value;
 
     // Ustaw zakres dat, jeśli pola daty są wypełnione
-    let startDate = startDateInput ? new Date(startDateInput) : null;
-    let endDate = endDateInput ? new Date(endDateInput) : null;
+    let startDate = startDateInput ? new Date(startDateInput).toISOString().split('T')[0] : null;
+    let endDate = endDateInput ? new Date(endDateInput).toISOString().split('T')[0] : null;
 
     // Filtruj zadania według kryteriów wyszukiwania i zakresu dat
     let filteredTodos = todoList.filter(todo => {
-        let todoDate = new Date(todo.dueDate);
+        let todoDate = new Date(todo.dueDate).toISOString().split('T')[0];
         let matchesSearch = filterInput === "" || 
             todo.title.includes(filterInput) || 
             todo.description.includes(filterInput);
         
-        let matchesDate = true;
-        if (startDate && todoDate < startDate) matchesDate = false;
-        if (endDate && todoDate > endDate) matchesDate = false;
+        let matchesDateStard = startDate === null ? true : false;
+        let matchesDateEnd = endDate === null ? true : false;
 
-        return matchesSearch && matchesDate;
+        if (todoDate >= startDate) matchesDateStard = true;
+        if (todoDate <= endDate) matchesDateEnd = true;
+        console.log(todoDate)
+        console.log(startDate)
+        return matchesSearch && (matchesDateStard && matchesDateEnd);
+    });
+    // Sortowanie według daty od najwcześniejszej do najpóźniejszej
+    filteredTodos.sort((a, b) => {
+        let dateA = new Date(a.dueDate).toISOString().split('T')[0];
+        let dateB = new Date(b.dueDate).toISOString().split('T')[0];
+        return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
     });
 
     // Dodaj przefiltrowane elementy do tabeli
@@ -116,7 +125,7 @@ let updateJSONbin = function() {
 
     req.open("PUT", "https://api.jsonbin.io/v3/b/67197594acd3cb34a89bf98f", true);
     req.setRequestHeader("Content-Type", "application/json");
-    req.setRequestHeader("X-Master-Key", "$2a$10$v5AIiUcMItBWyWO03Obg0u4uaZ9XQRFvbnY/20M1vZrYt5yYEWRS");
+    req.setRequestHeader("X-Master-Key", "$2a$10$v5AIiUcMItBWyWO03Obg0u4uaZ9XQRFvbnY/20M1vLZrYt5yYEWRS");
     let jsonData = JSON.stringify(todoList);
     req.send(jsonData);
 };
@@ -157,4 +166,10 @@ let deleteTodo = function(index) {
 
 function toggleDarkMode() {
     document.body.classList.toggle("dark-mode");
+}
+
+function clearFilters(){
+    document.getElementById("startDate").value = "";
+    document.getElementById("endDate").value = "";
+    document.getElementById("inputSearch").value = "";
 }
