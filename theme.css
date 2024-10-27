@@ -177,3 +177,83 @@ input[type="button"].btn-done:hover {
 #inputSearch::placeholder {
     color: #a1a1a6;
 }
+
+/* Styl przełącznika */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 20px;
+    width: 20px;
+    left: 4px;
+    bottom: 2px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #007aff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Tryb ciemny */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .container {
+    background-color: #1e1e1e;
+    color: #ffffff;
+}
+
+body.dark-mode .table {
+    background-color: #2e2e2e;
+    color: #ffffff;
+}
+
+body.dark-mode .table th {
+    background-color: #333333;
+}
+
+/* body.dark-mode .btn-primary,
+body.dark-mode input[type="button"].btn-delete,
+body.dark-mode input[type="button"].btn-done {
+    background-color: #505050;
+    color: #ffffff;
+} */
+
+body.dark-mode .form-control {
+    background-color: #2e2e2e;
+    color: #ffffff;
+    border: 1px solid #444;
+}

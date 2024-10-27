@@ -8,6 +8,14 @@
 </head>
 <body>
     <div class="container m-4">
+        <!-- Toggle switch for Dark Mode -->
+        <div class="toggle-container mb-3 d-flex align-items-center">
+          <label class="switch">
+              <input type="checkbox" id="darkModeToggle" onclick="toggleDarkMode()">
+              <span class="slider"></span>
+          </label>
+          <span>Dark Mode</span>
+      </div>
         <h1>MyToDo App</h1>
         
         <div id="todoListView" class="mb-4"></div>

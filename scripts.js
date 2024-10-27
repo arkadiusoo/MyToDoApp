@@ -139,3 +139,7 @@ let deleteTodo = function(index) {
     todoList.splice(index, 1);
     updateJSONbin();
 };
+
+function toggleDarkMode() {
+    document.body.classList.toggle("dark-mode");
+}
