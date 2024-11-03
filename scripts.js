@@ -9,6 +9,7 @@ req.onreadystatechange = () => {
         let records = responseObj.record;
         for (let record in records) {
             todoList.push({
+                id: records[record].id,
                 title: records[record].title,
                 description: records[record].description,
                 place: records[record].place,
@@ -88,7 +89,7 @@ let updateTodoList = function() {
         newDeleteButton.value = "Delete";
         newDeleteButton.classList.add("btn-delete");
         newDeleteButton.addEventListener("click", function() {
-            deleteTodo(todo);
+            deleteTodo(todo.id);
         });
 
         let newDoneButton = document.createElement("input");
@@ -96,7 +97,7 @@ let updateTodoList = function() {
         newDoneButton.value = "Done";
         newDoneButton.classList.add("btn-done");
         newDoneButton.addEventListener("click", function() {
-            deleteTodo(todo);
+            deleteTodo(todo.id);
         });
 
         actionCell.appendChild(newDoneButton);
@@ -136,10 +137,10 @@ let addTodo = async function() {
     let inputDescription = document.getElementById("inputDescription");
     let inputPlace = document.getElementById("inputPlace");
     let inputDate = document.getElementById("inputDate");
-    // przyszla logika
     let inputCategory = await categorizeTask(inputTitle.value,inputDescription.value)
 
     let newTodo = {
+        id: Date.now(),
         title: inputTitle.value,
         description: inputDescription.value,
         place: inputPlace.value,
@@ -149,6 +150,7 @@ let addTodo = async function() {
 
     todoList.push(newTodo);
     updateJSONbin();
+    updateTodoList();
 
     inputTitle.value = "";
     inputDescription.value = "";
@@ -157,9 +159,10 @@ let addTodo = async function() {
 };
 
 // task deletion / mark as done
-let deleteTodo = function(index) {
-    todoList.splice(index, 1);
+let deleteTodo = function(id) {
+    todoList = todoList.filter(todo => todo.id !== id);
     updateJSONbin();
+    updateTodoList();
 };
 
 function toggleDarkMode() {
