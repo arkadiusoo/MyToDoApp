@@ -1,4 +1,3 @@
-/* main style */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     background-color: #f5f5f7;
@@ -9,9 +8,9 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
+    transition: background-color 0.6s ease, color 0.6s ease;
 }
 
-/* main container */
 .container {
     background-color: #ffffff;
     border-radius: 12px;
@@ -20,35 +19,22 @@ body {
     max-width: 600px;
     width: 100%;
     margin: 0 auto;
+    transition: background-color 0.6s ease;
 }
 
-.form-container {
+.form-container, .search-container {
     max-width: 400px;
     margin: 0 auto;
 }
-
-.table-container {
+.table-container{
     max-width: 100%;
-    margin: 0 auto;
-}
-
-.search-container {
-    max-width: 600px;
     margin: 0 auto;
 }
 .date-filter-contaier {
     max-width: 120px;
     margin: 0 auto;
 }
-/* title */
-h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: #333333;
-    text-align: center;
-    margin-bottom: 1.5rem;
-}
-h3 {
+h1, h3 {
     font-size: 2rem;
     font-weight: 600;
     color: #333333;
@@ -56,28 +42,27 @@ h3 {
     margin-bottom: 1.5rem;
 }
 
-/* form and input fields */
 .form-group label {
     font-weight: 500;
     color: #5e5e5e;
 }
 
-.form-control {
+.form-control, #inputSearch {
     border: none;
     border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     padding: 10px;
-    margin-bottom: 1rem;
     font-size: 1rem;
     background-color: #f2f2f7;
     color: #1d1d1f;
+    margin-bottom: 1rem;
+    transition: background-color 0.6s ease, color 0.6s ease;
 }
 
-.form-control::placeholder {
+.form-control::placeholder, #inputSearch::placeholder {
     color: #a1a1a6;
 }
 
-/* buttons style */
 .btn-primary {
     background-color: #007aff;
     color: #ffffff;
@@ -91,17 +76,16 @@ h3 {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
-.btn-filtr {
-    width: 120px;
-    
-}
 
 .btn-primary:hover {
     background-color: #005bb5;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
+.btn-filtr {
+    width: 120px;
+    
+}
 
-/* table */
 .table {
     width: 100%;
     table-layout: fixed;
@@ -110,20 +94,20 @@ h3 {
     overflow: hidden;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
     margin: 0 auto;
+    transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 .table th, .table td {
     padding: 0.75rem;
     text-align: left;
-    border-top: none;
     word-wrap: break-word;
-    white-space: normal;
     overflow-wrap: break-word;
+    
 }
 
 .table th {
     font-weight: 600;
-    color: #1d1d1f;
+    /* color: #1d1d1f; */
     background-color: #f2f2f7;
 }
 
@@ -131,9 +115,7 @@ h3 {
     background-color: #f9f9fa;
 }
 
-/* Button delete */
-input[type="button"].btn-delete {
-    background-color: #ff3b30;
+input[type="button"].btn-delete, input[type="button"].btn-done {
     color: #ffffff;
     border: none;
     border-radius: 8px;
@@ -144,23 +126,19 @@ input[type="button"].btn-delete {
     width: 70px;
 }
 
+input[type="button"].btn-delete {
+    background-color: #ff3b30;
+}
+
 input[type="button"].btn-delete:hover {
     background-color: #d32e2a;
 }
 
-/* Button Done in Dark Mode */
 input[type="button"].btn-done {
     background-color: #34c759;
-    color: #ffffff;
-    border: none;
-    border-radius: 8px;
-    padding: 0.25rem 0.75rem;
-    cursor: pointer;
-    font-size: 0.875rem;
     font-weight: 500;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    width: 70px;
 }
 
 input[type="button"].btn-done:hover {
@@ -174,23 +152,6 @@ input[type="button"].btn-done:hover {
     gap: 0.5rem;
 }
 
-/* search field */
-#inputSearch {
-    border: none;
-    border-radius: 8px;
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    padding: 10px;
-    font-size: 1rem;
-    background-color: #f2f2f7;
-    margin-bottom: 1rem;
-    color: #1d1d1f;
-}
-
-#inputSearch::placeholder {
-    color: #a1a1a6;
-}
-
-/* Styl przełącznika */
 .switch {
     position: relative;
     display: inline-block;
@@ -237,10 +198,7 @@ input:checked + .slider:before {
     transform: translateX(26px);
 }
 
-
-
-
-/* dark mode */
+/* Dark Mode */
 body.dark-mode {
     background-color: #121212;
     color: #ffffff;
@@ -256,7 +214,8 @@ body.dark-mode #inputSearch {
 
 body.dark-mode .table th {
     background-color: #333333;
-    color: #ffffff;
+    
+    
 }
 
 body.dark-mode h1, 
@@ -268,136 +227,11 @@ body.dark-mode input[type="button"].btn-done {
     color: #ffffff;
 }
 
-/* Kolor tekstu w ciemnym trybie dla całej tabeli */
-body.dark-mode .table td {
-    color: #ffffff;
-}
-
-/* Tryb ciemny */
-body.dark-mode #inputSearch {
-    background-color: #1e1e1e;
-    color: #ffffff;
-    border: 1px solid #ffffff; 
-    border-radius: 8px; 
-    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-    transition: none;
-}
-
-/* main style */
-body {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    background-color: #f5f5f7;
-    color: #1d1d1f;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    transition: background-color 0.6s ease, color 0.6s ease; /* Animacja zmiany kolorów */
-}
-
-/* main container */
-.container {
-    background-color: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    padding: 2rem;
-    max-width: 600px;
-    width: 100%;
-    margin: 0 auto;
-    transition: background-color 0.6s ease; /* Dodajemy przejście */
-}
-
-/* Inne elementy */
-.form-control,
-.table,
-#inputSearch {
-    transition: background-color 0.6s ease, color 0.6s ease; /* Dodajemy przejście */
-}
-
-/* Styl przełącznika */
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 24px;
-    margin-right: 10px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 24px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 20px;
-    width: 20px;
-    left: 4px;
-    bottom: 2px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-input:checked + .slider {
-    background-color: #007aff;
-}
-
-input:checked + .slider:before {
-    transform: translateX(26px);
-}
-
-/* dark mode animation */
-body.dark-mode {
-    background-color: #121212;
-    color: #ffffff;
-}
-
-body.dark-mode .container,
-body.dark-mode .table,
-body.dark-mode .form-control,
-body.dark-mode #inputSearch {
-    background-color: #1e1e1e;
-    color: #ffffff;
-}
-
-body.dark-mode .table th {
-    background-color: #333333;
-    color: #ffffff;
-}
-
-body.dark-mode h1, 
-body.dark-mode .form-group label, 
-body.dark-mode .btn-primary, 
-body.dark-mode input[type="button"].btn-delete, 
-body.dark-mode input[type="button"].btn-done {
-    color: #ffffff;
-}
-
 body.dark-mode .table td {
     color: #ffffff;
 }
 
 body.dark-mode #inputSearch {
-    background-color: #1e1e1e;
-    color: #ffffff;
     border: 1px solid #ffffff;
-    border-radius: 8px;
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
 }

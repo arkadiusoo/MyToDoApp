@@ -1,7 +1,6 @@
 "use strict";
-let todoList = []; // Deklaracja nowej tablicy dla listy zadań
+let todoList = []; 
 
-// request conf
 let req = new XMLHttpRequest();
 
 req.onreadystatechange = () => {
@@ -27,21 +26,17 @@ req.send();
 let updateTodoList = function() {
     let todoTableBody = document.querySelector("#todoTable tbody");
 
-    // Usuń wszystkie elementy
     while (todoTableBody.firstChild) {
         todoTableBody.removeChild(todoTableBody.firstChild);
     }
 
-    // Pobierz wartości filtrów daty
     let startDateInput = document.getElementById("startDate").value;
     let endDateInput = document.getElementById("endDate").value;
     let filterInput = document.getElementById("inputSearch").value;
 
-    // Ustaw zakres dat, jeśli pola daty są wypełnione
     let startDate = startDateInput ? new Date(startDateInput).toISOString().split('T')[0] : null;
     let endDate = endDateInput ? new Date(endDateInput).toISOString().split('T')[0] : null;
 
-    // Filtruj zadania według kryteriów wyszukiwania i zakresu dat
     let filteredTodos = todoList.filter(todo => {
         let todoDate = new Date(todo.dueDate).toISOString().split('T')[0];
         let matchesSearch = filterInput === "" || 
@@ -53,18 +48,15 @@ let updateTodoList = function() {
 
         if (todoDate >= startDate) matchesDateStard = true;
         if (todoDate <= endDate) matchesDateEnd = true;
-        console.log(todoDate)
-        console.log(startDate)
         return matchesSearch && (matchesDateStard && matchesDateEnd);
     });
-    // Sortowanie według daty od najwcześniejszej do najpóźniejszej
+
     filteredTodos.sort((a, b) => {
         let dateA = new Date(a.dueDate).toISOString().split('T')[0];
         let dateB = new Date(b.dueDate).toISOString().split('T')[0];
         return dateA < dateB ? -1 : dateA > dateB ? 1 : 0;
     });
 
-    // Dodaj przefiltrowane elementy do tabeli
     filteredTodos.forEach(todo => {
         let row = document.createElement("tr");
 
